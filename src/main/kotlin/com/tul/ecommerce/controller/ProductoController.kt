@@ -1,16 +1,13 @@
 package com.tul.ecommerce.controller
 
+import com.tul.ecommerce.exception.GenericException
 import com.tul.ecommerce.model.Producto
 import com.tul.ecommerce.service.api.ProductoServiceApi
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.validation.FieldError
-import org.springframework.validation.ObjectError
 import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.*
 import java.util.*
-import java.util.function.Consumer
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
 
@@ -19,7 +16,7 @@ import javax.validation.constraints.NotNull
 @RequestMapping("/producto")
 @CrossOrigin("*")
 @Validated
-class ProductoController(private val productoServiceApi: ProductoServiceApi) {
+class ProductoController(private val productoServiceApi: ProductoServiceApi) : GenericException() {
 
     @GetMapping
     fun getAll() : MutableList<Producto>? {
@@ -68,18 +65,6 @@ class ProductoController(private val productoServiceApi: ProductoServiceApi) {
         }
 
         return ResponseEntity<Producto>(producto, HttpStatus.OK)
-    }
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException::class)
-    fun handleValidationExceptions(ex: MethodArgumentNotValidException): Map<String, String?>? {
-        val errors: MutableMap<String, String?> = HashMap()
-        ex.bindingResult.allErrors.forEach(Consumer { error: ObjectError ->
-            val fieldName = (error as FieldError).field
-            val errorMessage = error.getDefaultMessage()
-            errors[fieldName] = errorMessage
-        })
-        return errors
     }
 
 }
