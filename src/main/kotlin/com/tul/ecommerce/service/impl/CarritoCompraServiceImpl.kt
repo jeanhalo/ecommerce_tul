@@ -10,6 +10,10 @@ import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Service
 import java.util.*
 
+/**
+ * @author Jean Khalo Lozano Ruiz
+ * @version 2021/11/15
+ */
 @Service
 class CarritoCompraServiceImpl(private val carritoCompraRepository: CarritoCompraRepository) : GenericServiceImpl<CarritoCompra, UUID>(), CarritoCompraServiceApi {
 
@@ -31,7 +35,9 @@ class CarritoCompraServiceImpl(private val carritoCompraRepository: CarritoCompr
     override fun checkout(codigoCompra: String) : CheckoutDto? {
         val carrito = carritoCompraRepository.findAllByCodigoCompra(codigoCompra)
 
+        // Valida que el carrito tenga información de lo comprario retorna null.
         return if (carrito != null) {
+            // Valida que el arra no esté vacio de lo comprario retorna null.
             if (carrito.isNotEmpty()) {
                 var costoFinal = 0.0
                 for (car: CarritoCompra in carrito) {

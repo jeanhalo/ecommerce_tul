@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import java.util.HashMap
 import java.util.function.Consumer
 
+/**
+ * @author Jean Khalo Lozano Ruiz
+ * @version 2021/11/15
+ */
 open class GenericException {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException::class)

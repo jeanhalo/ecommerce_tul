@@ -6,6 +6,12 @@ import javax.persistence.Id
 import javax.persistence.MappedSuperclass
 import javax.persistence.Version
 
+/**
+ * Clase generica para version y id de las entidades.
+ *
+ * @author Jean Khalo Lozano Ruiz
+ * @version 2021/11/15
+ */
 @MappedSuperclass
 abstract class StandardEntity(
         @Id @Column(name = "id", length = 16, unique = true, nullable = false)

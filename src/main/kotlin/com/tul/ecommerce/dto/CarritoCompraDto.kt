@@ -6,6 +6,12 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.PositiveOrZero
 
+/**
+ * Objeto request para crear y actualizar carrito.
+ *
+ * @author Jean Khalo Lozano Ruiz
+ * @version 2021/11/15
+ */
 data class CarritoCompraDto(
     @NotBlank(message = "Campo obligatorio")
     @Length(message = "Máximo 100 carácteres", max = 100)
