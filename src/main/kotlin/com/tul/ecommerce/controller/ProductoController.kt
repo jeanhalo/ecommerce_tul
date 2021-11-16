@@ -17,10 +17,34 @@ class ProductoController(private val productoServiceApi: ProductoServiceApi) {
         return productoServiceApi.all
     }
 
+    @GetMapping("/{id}")
+    fun getById(@PathVariable id: UUID) : ResponseEntity<Producto> {
+        val producto = productoServiceApi[id]
+        return if (producto != null) {
+            ResponseEntity<Producto>(producto, HttpStatus.OK)
+        } else {
+            ResponseEntity<Producto>(HttpStatus.NO_CONTENT)
+        }
+    }
+
     @PostMapping
     fun save(@RequestBody producto: Producto) : ResponseEntity<Producto> {
         val obj = productoServiceApi.save(producto)
         return ResponseEntity<Producto>(obj, HttpStatus.CREATED)
+    }
+
+    @PutMapping("/{id}")
+    fun save(@PathVariable id: UUID, @RequestBody producto: Producto) : ResponseEntity<Producto> {
+        val prod = productoServiceApi[id]
+        return if (prod != null) {
+            prod.sku = producto.sku
+            prod.nombre = producto.nombre
+            prod.descripcion = producto.descripcion
+            prod.precio = producto.precio
+            ResponseEntity<Producto>(productoServiceApi.save(prod), HttpStatus.OK)
+        } else {
+            ResponseEntity<Producto>(HttpStatus.NO_CONTENT)
+        }
     }
 
     @DeleteMapping("/{id}")
@@ -29,7 +53,7 @@ class ProductoController(private val productoServiceApi: ProductoServiceApi) {
         if (producto != null) {
             productoServiceApi.delete(id)
         } else {
-            return ResponseEntity<Producto>(HttpStatus.NOT_FOUND)
+            return ResponseEntity<Producto>(HttpStatus.NO_CONTENT)
         }
 
         return ResponseEntity<Producto>(producto, HttpStatus.OK)
