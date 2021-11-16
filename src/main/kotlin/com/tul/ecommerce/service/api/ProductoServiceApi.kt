@@ -5,4 +5,5 @@ import com.tul.ecommerce.model.Producto
 import java.util.*
 
 interface ProductoServiceApi : GenericServiceApi<Producto, UUID> {
+    fun valorFinalProducto(producto : Producto)
 }
