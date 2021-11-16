@@ -6,6 +6,10 @@ import java.io.Serializable
 import java.util.ArrayList
 import java.util.function.Consumer
 
+/**
+ * @author Jean Khalo Lozano Ruiz
+ * @version 2021/11/15
+ */
 @Service
 abstract class GenericServiceImpl<T, ID : Serializable?> : GenericServiceApi<T, ID> {
     override fun save(entity: T): T {

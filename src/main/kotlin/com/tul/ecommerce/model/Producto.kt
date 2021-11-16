@@ -12,6 +12,10 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.PositiveOrZero
 
+/**
+ * @author Jean Khalo Lozano Ruiz
+ * @version 2021/11/15
+ */
 @Entity(name = "ec_tul_producto")
 data class Producto(
         @NotBlank(message = "Campo obligatorio")
